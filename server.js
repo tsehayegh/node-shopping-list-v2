@@ -54,12 +54,17 @@ app.get('/recipes', (req, res) => {
 
 app.post('/recipes', jsonParser, (req, res) => {
   const recipeFields = ['name', 'ingredients'];
-  recipeFields.map((key, index) => {
+  //for (let i = 0; i < recipeFields.length; i++){
+  recipeFields.map((key) => {
+    //const key = recipeFields[i];
     if(!(key in req.body)) {
       const errorMessage = `Missing \`${key}\` in request body`;
+      console.log(errorMessage);
       res.status(400).send(errorMessage);
     }
   });
+
+  
   const newMenuItem = Recipes.create(req.body.name, req.body.ingredients);
   res.status(201).json(newMenuItem);
 });
