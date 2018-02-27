@@ -54,9 +54,7 @@ app.get('/recipes', (req, res) => {
 
 app.post('/recipes', jsonParser, (req, res) => {
   const recipeFields = ['name', 'ingredients'];
-  //for (let i = 0; i < recipeFields.length; i++){
   recipeFields.map((key) => {
-    //const key = recipeFields[i];
     if(!(key in req.body)) {
       const errorMessage = `Missing \`${key}\` in request body`;
       console.log(errorMessage);
