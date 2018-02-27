@@ -52,6 +52,18 @@ app.get('/recipes', (req, res) => {
   res.json(Recipes.get());
 })
 
+app.post('/recipes', jsonParser, (req, res) => {
+  const recipeFields = ['name', 'ingredients'];
+  recipeFields.map((key, index) => {
+    if(!(key in req.body)) {
+      const errorMessage = `Missing \`${key}\` in request body`;
+      res.status(400).send(errorMessage);
+    }
+  });
+  const newMenuItem = Recipes.create(req.body.name, req.body.ingredients);
+  res.status(201).json(newMenuItem);
+});
+
 app.listen(process.env.PORT || 8080, () => {
   console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
 });
